@@ -1,5 +1,5 @@
 +++
-title = "About"
+title = "about"
 description = "jaxi - the description"
 +++
 
