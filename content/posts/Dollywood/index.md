@@ -9,6 +9,8 @@ For reasons unbeknownst to me, Hilton Grand Vacations keeps offering me 3-day, 4
 
 ## Roller Coasters
 
+---
+
 I will be ranking these coasters from what I consider to be worst to best, with one notable coaster excluded.
 
 ### Mystery Mine
@@ -59,6 +61,8 @@ Topping my ranking of Dollywood's coasters is Thunderhead. This GCI wooden coast
 
 ## Non-Coaster Attractions
 
+---
+
 ### Flat Rides
 
 Dollywood, being a park that mainly targets families rather than enthusiasts, doesn’t have a huge selection of thrilling flat rides. The only two I would really classify as “highly thrilling” are Drop Line, the park’s Funtime Drop Tower, and Barnstormer, their S&S Screamin’ Swing. Both of these are fun, solid rides, but they’re nothing special in their respective categories. Drop Line makes me miss the tilting action that many Intamin Drop Towers have, and Barnstormer is just a bit shorter than the attractions that made me love this ride model – both of the Busch Gardens “Flyers“.
@@ -79,16 +83,16 @@ Dollywood wouldn't be Dollywood if it wasn't for Dolly Parton herself, and this 
 ![The Dolly Parton Experience](dpe.webp)
 ![Tennessee Mountain Home](tmh.webp)
 
----
-
 ## Food
+
+---
 
 Honestly some of the best theme park food I have ever had. I went during a festival of some kind that had unique food offerings attached to it and everything I had I enjoyed a lot. I especially would recommend trying out their pastries, their cinnamon bread of course, but also their other offerings. Everything sweet that I tried here was amazing. That's not to say that the savory meals were any less good, though. My favorite meal was probably the Chicken Alfredo Bread Bowl I had, which was one of the limited offerings.
 
 ![Lemon Pastry](lemon_pastry.webp)
 
----
-
 ## Final Thoughts
+
+---
 
 Dollywood is up there as one of my favorite parks I've visited. Not for the thrills alone but for the overall atmosphere. I would love to visit this park in the autumn, during their Harvest Festival, as the nature surrounding this park really contributes a lot to the overall feeling of the place. I would highly recommend anyone making a trip to visit the more thrilling Carowinds and Six Flags Over Georgia parks to make a stop at Dollywood as well, if for no other reason than to ride Thunderhead and Lightning rod. And to eat the cinnamon bread.
