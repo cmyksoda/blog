@@ -8,10 +8,10 @@
 baseURL = "https://blog.cmyksoda.cc/"
 
 theme = "risotto"
-title = "Blog"
+title = "cmyksoda@blog"
 author = "jaxi"
-copyright = "© jaxi"
-locale = "en-GB"
+copyright = "© cmyksoda/jaxi"
+locale = "en-US"
 defaultContentLanguage = "en"
 
 enableInlineShortcodes = true
@@ -40,10 +40,10 @@ capitalizeListTitles = false
 
 # The "about" box in the sidebar
 [params.about]
-  title = "Blog"
-  description = "Writing about things I like."
+  title = "cmyksoda - the blog"
+  description = "writing about the things i like"
   # A unicode character or emoji used as the logo:
-  logo = "🍄"
+  logo = "🐱"
   # ...or use an image instead (comment out `logo` above if you use this):
   # logo_image = "images/logo.png"
 
@@ -57,9 +57,24 @@ capitalizeListTitles = false
   url = "https://github.com/cmyksoda"
 
 [[params.socialLinks]]
+  icon = "fa-brands fa-bandcamp"
+  title = "Bandcamp"
+  url = "https://serifmusic.bandcamp.com/"
+
+[[params.socialLinks]]
+  icon = "fa-brands fa-twitter"
+  title = "Twitter"
+  url = "https://x.com/cmyksoda"
+
+[[params.socialLinks]]
+  icon = "fa-brands fa-youtube"
+  title = "Youtube"
+  url = "https://www.youtube.com/@cmyksoda"
+
+[[params.socialLinks]]
   icon = "fa-solid fa-envelope"
   title = "Email"
-  url = "mailto:spyc23@gmail.com"
+  url = "mailto:jaxi@cmyksoda.cc"
 
 [[params.socialLinks]]
   icon = "fa-solid fa-rss"
