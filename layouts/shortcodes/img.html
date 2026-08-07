@@ -1,27 +1,35 @@
 {{/*
-    Image shortcode with an optional caption.
+    Image shortcode with optional caption, width and alignment.
 
-        {{< img src="photo.jpg" alt="A cat" caption="My cat, Beans" >}}
+        {{< img src="photo.jpg" alt="A cat" >}}
+        {{< img src="photo.jpg" alt="A cat" caption="Beans, helping" >}}
+        {{< img src="photo.jpg" alt="A cat" width="50%" >}}
+        {{< img src="photo.jpg" alt="A cat" width="300" align="center" >}}
 
-    `src` can be either:
-      * the filename of an image sitting next to your index.md
-        (a "page bundle") — this gets automatically resized
-        and served at a sensible size, or
-      * a path under static/, e.g. "/images/photo.jpg"
+    src     — a file next to your index.md, or a path under static/
+              like "/images/photo.jpg", or a full https:// URL
+    alt     — description for screen readers. Please always write one.
+    caption — optional text underneath
+    width   — "50%", "300px", or just "300" (treated as pixels)
+    align   — "center", "left" or "right" (default: left)
 
-    `alt` describes the image for screen readers and for when
-    the image fails to load. Please always write one!
+    Big images are resized down to 1400px automatically, so you can drop
+    a full-size phone photo straight in.
 */}}
 {{- $src     := .Get "src" | default (.Get 0) -}}
 {{- $alt     := .Get "alt" | default "" -}}
 {{- $caption := .Get "caption" -}}
+{{- $width   := .Get "width" -}}
+{{- $align   := .Get "align" -}}
 {{- $maxWidth := 1400 -}}
 
 {{- $url := $src -}}
-{{- $width := 0 -}}
-{{- $height := 0 -}}
+{{- $natW := 0 -}}
+{{- $natH := 0 -}}
+{{- $found := false -}}
 
 {{- with .Page.Resources.GetMatch $src -}}
+    {{- $found = true -}}
     {{- $sub := .MediaType.SubType -}}
     {{- if or (eq $sub "svg") (eq $sub "gif") -}}
         {{/* don't resize these — it breaks vectors / drops animation */}}
@@ -32,15 +40,33 @@
             {{- $img = .Resize (printf "%dx" $maxWidth) -}}
         {{- end -}}
         {{- $url = $img.RelPermalink -}}
-        {{- $width = $img.Width -}}
-        {{- $height = $img.Height -}}
+        {{- $natW = $img.Width -}}
+        {{- $natH = $img.Height -}}
     {{- end -}}
 {{- end -}}
 
-<figure>
+{{/* Warn at build time if the file simply isn't there, rather than
+     silently producing a broken image. Paths starting with / or http
+     are meant to live elsewhere, so those are left alone. */}}
+{{- if and (not $found) (not (or (hasPrefix $src "/") (hasPrefix $src "http") (hasPrefix $src "data:"))) -}}
+    {{- warnf "img shortcode: couldn't find %q next to %s — is the file in that folder, and spelled exactly right (capitals matter)?" $src .Page.File.Path -}}
+{{- end -}}
+
+{{/* Normalise a bare number like "300" into "300px" */}}
+{{- if and $width (findRE `^[0-9]+$` $width) -}}
+    {{- $width = printf "%spx" $width -}}
+{{- end -}}
+
+{{- $class := slice "img-figure" -}}
+{{- with $align }}{{ $class = $class | append (printf "img-%s" .) }}{{ end -}}
+{{- if $width }}{{ $class = $class | append "img-sized" }}{{ end -}}
+
+<figure class="{{ delimit $class " " }}"{{ with $width }} style="{{ printf "width:%s" . | safeCSS }}"{{ end }}>
     <img src="{{ $url }}" alt="{{ $alt }}"
-         {{- with $width }} width="{{ . }}"{{ end }}
-         {{- with $height }} height="{{ . }}"{{ end }}
+         {{- if not $width }}
+         {{- with $natW }} width="{{ . }}"{{ end }}
+         {{- with $natH }} height="{{ . }}"{{ end }}
+         {{- end }}
          loading="lazy" decoding="async">
     {{- with $caption }}
     <figcaption>{{ . | markdownify }}</figcaption>

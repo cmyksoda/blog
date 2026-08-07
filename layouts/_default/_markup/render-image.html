@@ -1,0 +1,48 @@
+{{/*
+    Runs on every plain-markdown image:  ![alt text](photo.jpg)
+
+    Gives them the same treatment as the img shortcode — big files get
+    resized down, and they load lazily — without you doing anything.
+
+    This deliberately outputs a bare <img> rather than a <figure>,
+    because markdown puts images inside a paragraph and a <figure>
+    isn't allowed in there.
+
+    Markdown has no syntax for width or alignment, so for those use:
+        {{< img src="photo.jpg" alt="..." width="50%" align="center" >}}
+*/}}
+{{- $src := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+{{- $maxWidth := 1400 -}}
+
+{{- $url := $src -}}
+{{- $w := 0 -}}
+{{- $h := 0 -}}
+{{- $found := false -}}
+
+{{- with .Page.Resources.GetMatch $src -}}
+    {{- $found = true -}}
+    {{- $sub := .MediaType.SubType -}}
+    {{- if or (eq $sub "svg") (eq $sub "gif") -}}
+        {{- $url = .RelPermalink -}}
+    {{- else -}}
+        {{- $img := . -}}
+        {{- if gt .Width $maxWidth -}}
+            {{- $img = .Resize (printf "%dx" $maxWidth) -}}
+        {{- end -}}
+        {{- $url = $img.RelPermalink -}}
+        {{- $w = $img.Width -}}
+        {{- $h = $img.Height -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if and (not $found) (not (or (hasPrefix $src "/") (hasPrefix $src "http") (hasPrefix $src "data:"))) -}}
+    {{- warnf "markdown image: couldn't find %q next to %s — is the file in that folder, and spelled exactly right (capitals matter)?" $src .Page.File.Path -}}
+{{- end -}}
+
+<img src="{{ $url }}" alt="{{ $alt }}"
+     {{- with $title }} title="{{ . }}"{{ end }}
+     {{- with $w }} width="{{ . }}"{{ end }}
+     {{- with $h }} height="{{ . }}"{{ end }}
+     loading="lazy" decoding="async">

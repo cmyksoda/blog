@@ -54,13 +54,20 @@ jobs:
       - name: Build the site
         env:
           HUGO_ENVIRONMENT: production
-        # baseURL comes from GitHub, so it's automatically correct whether
-        # you're on a github.io address or your own custom domain.
+        # baseURL deliberately comes from hugo.toml (https://blog.cmyksoda.cc/)
+        # rather than from GitHub.
+        #
+        # We used to pass --baseURL "${{ steps.pages.outputs.base_url }}/".
+        # The trouble is GitHub reports http:// until "Enforce HTTPS" is
+        # switched on, so the site got built with http:// stylesheet links.
+        # The moment HTTPS was enforced, the page was served over https but
+        # still asked for http:// CSS — browsers block that as mixed content
+        # and the whole site renders unstyled.
+        #
+        # Reading it from hugo.toml keeps it stable. If you ever change your
+        # domain, update baseURL in hugo.toml.
         run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+          hugo --gc --minify
 
       - name: Upload the built site
         uses: actions/upload-pages-artifact@v3

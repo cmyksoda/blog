@@ -115,11 +115,46 @@ Put the image in the post's folder, then:
 Big images are **automatically resized** to a sensible width, so you can
 drop a full-size phone photo straight in without thinking about it.
 
-Plain markdown works too if you don't want a caption:
+### Size and alignment
+
+```markdown
+{{< img src="photo.jpg" alt="A cat" width="50%" >}}
+{{< img src="photo.jpg" alt="A cat" width="300" align="center" >}}
+{{< img src="photo.jpg" alt="A cat" width="20rem" align="right" >}}
+```
+
+- `width` — `"50%"`, `"300px"`, or just `"300"` (bare numbers are treated
+  as pixels). Percentages are of the text column, not the whole screen.
+- `align` — `"center"`, `"left"` or `"right"`. The caption follows the
+  image. Without a width, `center` still centres the image.
+
+On phones (under 600px wide) the width is ignored and images go full
+width, because a 50% image on a phone screen is unreadably small.
+
+### Plain markdown
+
+Works too, and gets the same automatic resizing and lazy loading:
 
 ```markdown
 ![A cat asleep on a keyboard](photo.jpg)
 ```
+
+But markdown has **no syntax for width or alignment** — it only
+understands `![alt](src)`. That's a limitation of markdown itself, not
+of Hugo. So whenever you want to size or position an image, use the
+`img` shortcode above.
+
+### If an image doesn't show up
+
+The build now warns you by name:
+
+```
+WARN  img shortcode: couldn't find "photo.jpg" next to posts/Dollywood/index.md
+```
+
+Nine times out of ten it's capitalisation — `Photo.JPG` and `photo.jpg`
+are different files as far as the web is concerned, even though your
+computer may not care.
 
 **For an image you reuse across posts**, put it in `static/images/` and
 reference it with a leading slash — `src="/images/logo.png"`.
@@ -341,7 +376,8 @@ modified copy of the theme's — compare it against the new version.
 | --- | --- |
 | Post missing from the live site | still `draft = true` |
 | Post missing locally too | run `hugo server -D` to include drafts |
-| Site works locally, unstyled online | `baseURL` in `hugo.toml` is wrong |
+| Site works locally, unstyled online | `baseURL` in `hugo.toml` is wrong — it must match your real address exactly, **including `https://`** |
+| Site suddenly unstyled right after a settings change | mixed content — the page loads over `https://` but links `http://` assets, so the browser blocks the CSS. Re-run the deploy |
 | Image not showing | filename typo, or wrong folder — case matters! |
 | Tag page 404s | tag spelled differently in another post |
 | Changes not appearing | hard-refresh (`Ctrl+Shift+R`) |

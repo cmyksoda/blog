@@ -183,6 +183,8 @@ video {
 
 figure {
 	margin: 1.5rem 0;
+	/* never let an image push the page sideways on a phone */
+	max-width: 100%;
 }
 
 figure img {
@@ -194,6 +196,41 @@ figure figcaption {
 	font-size: 0.9rem;
 	margin-top: 0.4rem;
 	font-style: italic;
+}
+
+/* ── width= and align= on the img shortcode ──
+   {{< img src="x.jpg" alt="..." width="50%" align="center" >}}   */
+
+/* When a width is given, the image fills the figure the shortcode sized */
+.img-sized img {
+	width: 100%;
+	height: auto;
+}
+
+.img-center {
+	margin-left: auto;
+	margin-right: auto;
+	/* also centres the image when no width was given */
+	text-align: center;
+}
+
+.img-left {
+	margin-left: 0;
+	margin-right: auto;
+}
+
+.img-right {
+	margin-left: auto;
+	margin-right: 0;
+	text-align: right;
+}
+
+/* On narrow screens, ignore the width and let images go full width —
+   a 50% image on a phone is unreadably small. */
+@media (max-width: 600px) {
+	.img-sized {
+		width: 100% !important;
+	}
 }
 
 /* Responsive wrapper for YouTube/Vimeo embeds */

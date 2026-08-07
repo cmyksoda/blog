@@ -1,4 +1,4 @@
 +++
 title = "Tags"
-description = "Browse posts by tag."
+description = "browse posts by tag"
 +++
