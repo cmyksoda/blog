@@ -71,7 +71,8 @@ Dollywood, being a park that mainly targets families rather than enthusiasts, do
 
 That being said, the park’s focus on family-friendly fun rather than pure thrills isn’t a bad thing! Sure, there are plenty of kid’s flat rides that I would probably not fit into or even be allowed on if I wanted to ride them, but there are also rides like Rockin’ Roadway and Black Bear Trail which are silly and awesome no matter what age you are. Riding tiny 50s-style tracked cars and rocking back and forth on those cute little bears brought me lots of joy, and I wouldn’t pass these rides up if there’s not much of a wait for them.
 
-{{< youtube vM5yTLicEjU >}}
+{{< youtube vM5yTLicEjU >}}  
+
 
 I also got on one water ride, the Smoky Mountain River Rampage. Despite being an older River Rapids attraction, I found the course to be fun and exciting with plenty of splash moments. It might not have all the wacky things like elevator lifts and halfpipes that Intamin is putting in their newer River Rapids rides, but it’s something I would recommend to anyone who likes to get wet while at a theme park and wants to take a break from the coasters for a bit.
 
