@@ -251,6 +251,26 @@ figure figcaption {
 	border-radius: 4px;
 }
 
+/* Hugo's built-in {{< youtube >}} and {{< vimeo >}} shortcodes emit their
+   own responsive wrapper: a <div> with inline styles, no class, and — the
+   problem — no margin.
+
+   Paragraphs in this theme have a bottom margin but no top margin, so an
+   embed ends up with a gap above it (from the paragraph before) and none
+   below it. This adds the missing one.
+
+   Note: no amount of blank lines or double spaces in your markdown can
+   fix this. Whitespace in markdown doesn't carry through to the HTML —
+   spacing between blocks is always decided by CSS. */
+.content__body div[style*="padding-bottom"] {
+	margin: 1.5rem 0;
+}
+
+/* Match the rounded corners used on images and video */
+.content__body div[style*="padding-bottom"] iframe {
+	border-radius: 4px;
+}
+
 /* Wide things (tables, long code) scroll instead of breaking layout */
 .content__body table {
 	display: block;

@@ -73,7 +73,6 @@ That being said, the park’s focus on family-friendly fun rather than pure thri
 
 {{< youtube vM5yTLicEjU >}}  
 
-
 I also got on one water ride, the Smoky Mountain River Rampage. Despite being an older River Rapids attraction, I found the course to be fun and exciting with plenty of splash moments. It might not have all the wacky things like elevator lifts and halfpipes that Intamin is putting in their newer River Rapids rides, but it’s something I would recommend to anyone who likes to get wet while at a theme park and wants to take a break from the coasters for a bit.
 
 
