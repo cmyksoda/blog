@@ -1,0 +1,12 @@
+{{/*
+    Renders a page's tags as clickable pills.
+    Styled by the `.tags` rules in static/css/custom.css.
+    Used from single.html and post/list.html.
+*/}}
+{{- with .GetTerms "tags" }}
+<ul class="tags">
+    {{- range . }}
+    <li><a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a></li>
+    {{- end }}
+</ul>
+{{- end }}

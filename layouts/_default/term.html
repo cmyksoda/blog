@@ -1,0 +1,33 @@
+{{/*
+    A single tag's page, e.g. /tags/cooking/ — all the posts
+    carrying that tag. Also generated automatically by Hugo.
+*/}}
+{{ define "main" }}
+    <header class="content__header">
+        <h1>#{{ .Title }}</h1>
+        <p class="post__meta">
+            {{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }}
+        </p>
+        {{ .Content }}
+    </header>
+
+    {{- range .Pages.ByDate.Reverse }}
+    <article class="post">
+        <header class="post__header">
+            <h1><a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h1>
+            <p class="post__meta">
+                <span class="date">{{ .Date.Format "2 January 2006" }}</span>
+            </p>
+        </header>
+        <section class="post__summary">
+            {{ .Summary }}
+        </section>
+    </article>
+    {{- end }}
+
+    <p><a href="{{ "/tags/" | relURL }}">&larr; All tags</a></p>
+{{ end }}
+
+{{ define "aside" }}
+    {{ if .Params.description }}<p>{{ .Params.description }}</p>{{ end }}
+{{ end }}

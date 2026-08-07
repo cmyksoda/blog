@@ -1,0 +1,45 @@
+{{/*
+    A single page (a post, or a standalone page like /about/).
+
+    This overrides themes/risotto/layouts/_default/single.html.
+    Hugo always prefers a file in your project's layouts/ folder
+    over the theme's copy, so the theme stays untouched.
+
+    Changes vs the theme's version: shows the date and tags.
+*/}}
+{{ define "main" }}
+    <header class="content__header">
+        <h1>{{ .Title | markdownify }}</h1>
+        {{- if and .Date (eq .Type "posts") }}
+        <p class="post__meta">
+            <span class="date">{{ .Date.Format "2 January 2006" }}</span>
+            {{ if gt .ReadingTime 0 }}&middot; {{ .ReadingTime }} min read{{ end }}
+        </p>
+        {{- end }}
+    </header>
+
+    <div class="content__body">
+        {{ .Content }}
+    </div>
+
+    <footer class="content__footer">
+        {{- partial "tags.html" . }}
+    </footer>
+{{ end }}
+
+{{ define "aside" }}
+    {{ if .Params.description }}<p>{{ .Params.description }}</p>{{ end }}
+
+    {{ if or .Params.author .Date }}
+        <p>
+            {{ with .Params.author }}By {{ . }}{{ if $.Date }}, {{ end }}{{ end }}
+            {{ with .Date }}{{ .Format "2006-01-02" }}{{ end }}
+        </p>
+    {{ end }}
+
+    {{ if and .Params.toc .TableOfContents }}
+        <hr>
+        On this page:
+        {{ .TableOfContents }}
+    {{ end }}
+{{ end }}

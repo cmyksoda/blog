@@ -1,0 +1,56 @@
+{{/*
+    Everything inside <head>.
+
+    This is a copy of the theme's version with two changes:
+      * it uses the current Hugo API for the site locale
+        (the theme's version uses one that's being removed)
+      * the meta description and social preview now use the page's
+        own `description` when it has one, falling back to the site's
+
+    If you ever update the theme, compare this against
+    themes/risotto/layouts/partials/head.html in case it's changed.
+*/}}
+
+{{- $desc := "" -}}
+{{- with .Params.description }}{{ $desc = . }}
+{{- else }}{{ with site.Params.about }}{{ $desc = .description }}{{ end }}{{ end -}}
+
+<title>{{ with .Title }}{{ . }} &ndash; {{ end }}{{ site.Title }}</title>
+<meta name="description" content="{{ $desc | plainify }}">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+{{ if site.Params.noindex }}<meta name="robots" content="noindex">{{ end }}
+
+<!-- FontAwesome <https://fontawesome.com/> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Academicons <https://jpswalsh.github.io/academicons/> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- risotto theme + your palette + your custom.css -->
+<link rel="stylesheet" href="{{ printf "css/palettes/%s.css" (site.Params.theme.palette | default "base16-dark") | absURL }}">
+<link rel="stylesheet" href="{{ "css/risotto.css" | absURL }}">
+<link rel="stylesheet" href="{{ "css/custom.css" | absURL }}">
+
+<!-- favicon -->
+{{ if os.FileExists "static/favicon.ico" }}<link rel="icon" href="{{ "favicon.ico" | absURL }}">{{ end }}
+{{ if os.FileExists "static/favicon-32x32.png" }}<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | absURL }}">{{ end }}
+{{ if os.FileExists "static/favicon-16x16.png" }}<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | absURL }}">{{ end }}
+{{ if os.FileExists "static/apple-touch-icon.png" }}<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | absURL }}">{{ end }}
+{{ if os.FileExists "static/site.webmanifest" }}<link rel="manifest" href="{{ "site.webmanifest" | absURL }}">{{ end }}
+
+<!-- RSS -->
+{{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+
+<!-- Social preview cards -->
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ with .Title }}{{ . }}{{ else }}{{ site.Title }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:description" content="{{ $desc | plainify }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+{{ with site.Language.Locale }}<meta property="og:locale" content="{{ . }}">{{ end }}
+{{ with site.Params.about.logo_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+<meta name="twitter:card" content="summary">

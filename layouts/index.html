@@ -1,0 +1,40 @@
+{{/*
+    The homepage.
+
+    The theme's version only shows the text from content/_index.md.
+    This adds a list of your most recent posts underneath.
+    Change the `first 5` below to show more or fewer.
+*/}}
+{{ define "main" }}
+    <div class="content__body">
+        {{ .Content }}
+    </div>
+
+    {{- $recent := where site.RegularPages "Type" "posts" }}
+    {{- with $recent }}
+    <h2 id="recent-posts">Recent posts</h2>
+
+    {{- range first 5 (.ByDate.Reverse) }}
+    <article class="post">
+        <header class="post__header">
+            <h1><a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h1>
+            <p class="post__meta">
+                <span class="date">{{ .Date.Format "2 January 2006" }}</span>
+                {{ if gt .ReadingTime 0 }}&middot; {{ .ReadingTime }} min read{{ end }}
+            </p>
+        </header>
+        <section class="post__summary">
+            {{ .Summary }}
+        </section>
+        {{- partial "tags.html" . }}
+    </article>
+    {{- end }}
+
+    {{- if gt (len $recent) 5 }}
+    <p><a href="{{ "/posts/" | relURL }}">All posts &rarr;</a></p>
+    {{- end }}
+    {{- end }}
+{{ end }}
+
+{{ define "aside" }}
+{{ end }}

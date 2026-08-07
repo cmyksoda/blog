@@ -1,0 +1,48 @@
+{{/*
+    Image shortcode with an optional caption.
+
+        {{< img src="photo.jpg" alt="A cat" caption="My cat, Beans" >}}
+
+    `src` can be either:
+      * the filename of an image sitting next to your index.md
+        (a "page bundle") — this gets automatically resized
+        and served at a sensible size, or
+      * a path under static/, e.g. "/images/photo.jpg"
+
+    `alt` describes the image for screen readers and for when
+    the image fails to load. Please always write one!
+*/}}
+{{- $src     := .Get "src" | default (.Get 0) -}}
+{{- $alt     := .Get "alt" | default "" -}}
+{{- $caption := .Get "caption" -}}
+{{- $maxWidth := 1400 -}}
+
+{{- $url := $src -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+
+{{- with .Page.Resources.GetMatch $src -}}
+    {{- $sub := .MediaType.SubType -}}
+    {{- if or (eq $sub "svg") (eq $sub "gif") -}}
+        {{/* don't resize these — it breaks vectors / drops animation */}}
+        {{- $url = .RelPermalink -}}
+    {{- else -}}
+        {{- $img := . -}}
+        {{- if gt .Width $maxWidth -}}
+            {{- $img = .Resize (printf "%dx" $maxWidth) -}}
+        {{- end -}}
+        {{- $url = $img.RelPermalink -}}
+        {{- $width = $img.Width -}}
+        {{- $height = $img.Height -}}
+    {{- end -}}
+{{- end -}}
+
+<figure>
+    <img src="{{ $url }}" alt="{{ $alt }}"
+         {{- with $width }} width="{{ . }}"{{ end }}
+         {{- with $height }} height="{{ . }}"{{ end }}
+         loading="lazy" decoding="async">
+    {{- with $caption }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end }}
+</figure>

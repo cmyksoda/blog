@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════════════════════════
+   Catppuccin Mocha
+   Official palette: https://github.com/catppuccin/catppuccin
+   base16 mapping:   https://github.com/catppuccin/base16
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+	/* ── The full official Catppuccin Mocha palette, by name. ──
+	   You can use any of these in static/css/custom.css,
+	   e.g.  color: var(--ctp-pink);                            */
+
+	--ctp-rosewater: #f5e0dc;
+	--ctp-flamingo:  #f2cdcd;
+	--ctp-pink:      #f5c2e7;
+	--ctp-mauve:     #cba6f7;
+	--ctp-red:       #f38ba8;
+	--ctp-maroon:    #eba0ac;
+	--ctp-peach:     #fab387;
+	--ctp-yellow:    #f9e2af;
+	--ctp-green:     #a6e3a1;
+	--ctp-teal:      #94e2d5;
+	--ctp-sky:       #89dceb;
+	--ctp-sapphire:  #74c7ec;
+	--ctp-blue:      #89b4fa;
+	--ctp-lavender:  #b4befe;
+
+	--ctp-text:      #cdd6f4;
+	--ctp-subtext1:  #bac2de;
+	--ctp-subtext0:  #a6adc8;
+	--ctp-overlay2:  #9399b2;
+	--ctp-overlay1:  #7f849c;
+	--ctp-overlay0:  #6c7086;
+	--ctp-surface2:  #585b70;
+	--ctp-surface1:  #45475a;
+	--ctp-surface0:  #313244;
+	--ctp-base:      #1e1e2e;
+	--ctp-mantle:    #181825;
+	--ctp-crust:     #11111b;
+
+	/* ── base16 slots, which is what risotto actually reads. ──
+	   These follow Catppuccin's official base16 port exactly.   */
+
+	--base00: var(--ctp-base);      /* default background        */
+	--base01: var(--ctp-mantle);    /* lighter/darker background */
+	--base02: var(--ctp-surface0);  /* selection background      */
+	--base03: var(--ctp-surface1);  /* comments, muted           */
+	--base04: var(--ctp-surface2);  /* dark foreground           */
+	--base05: var(--ctp-text);      /* default foreground        */
+	--base06: var(--ctp-rosewater); /* light foreground          */
+	--base07: var(--ctp-lavender);  /* lightest foreground       */
+	--base08: var(--ctp-red);       /* variables, errors         */
+	--base09: var(--ctp-peach);     /* integers, constants       */
+	--base0A: var(--ctp-yellow);    /* classes, search highlight */
+	--base0B: var(--ctp-green);     /* strings                   */
+	--base0C: var(--ctp-teal);      /* escapes, regex            */
+	--base0D: var(--ctp-blue);      /* functions                 */
+	--base0E: var(--ctp-mauve);     /* keywords                  */
+	--base0F: var(--ctp-flamingo);  /* deprecated                */
+}

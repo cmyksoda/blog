@@ -1,0 +1,44 @@
+{{/*
+    Self-hosted video (a file you own, not YouTube).
+
+        {{< video src="clip.mp4" caption="A short clip" >}}
+        {{< video src="clip.mp4" poster="thumb.jpg" autoplay="true" loop="true" >}}
+
+    `src` works the same as the img shortcode: either a file
+    next to your index.md, or a path under static/.
+
+    Note: autoplay only works in browsers when the video is
+    also muted, so autoplay="true" implies muted.
+*/}}
+{{- $src     := .Get "src" | default (.Get 0) -}}
+{{- $poster  := .Get "poster" -}}
+{{- $caption := .Get "caption" -}}
+{{- $autoplay := eq (.Get "autoplay" | default "false") "true" -}}
+{{- $loop     := eq (.Get "loop" | default "false") "true" -}}
+
+{{- $url := $src -}}
+{{- with .Page.Resources.GetMatch $src -}}
+    {{- $url = .RelPermalink -}}
+{{- end -}}
+
+{{- $posterUrl := $poster -}}
+{{- with $poster -}}
+    {{- with $.Page.Resources.GetMatch . -}}
+        {{- $posterUrl = .RelPermalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $type := printf "video/%s" (strings.TrimPrefix "." (path.Ext $url)) -}}
+
+<figure>
+    <video controls preload="metadata" playsinline
+           {{- with $posterUrl }} poster="{{ . }}"{{ end }}
+           {{- if $autoplay }} autoplay muted{{ end }}
+           {{- if $loop }} loop{{ end }}>
+        <source src="{{ $url }}" type="{{ $type }}">
+        <p>Your browser can't play this video. <a href="{{ $url }}">Download it instead.</a></p>
+    </video>
+    {{- with $caption }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end }}
+</figure>

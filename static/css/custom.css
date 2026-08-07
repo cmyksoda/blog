@@ -1,0 +1,222 @@
+/* ═══════════════════════════════════════════════════════════
+   YOUR custom CSS.
+
+   This file is loaded LAST, so anything in here beats the
+   theme's own styles. Put all your tweaks here rather than
+   editing files in themes/risotto/ — that way you can update
+   the theme later without losing your changes.
+
+   Colour names come from static/css/palettes/catppuccin-mocha.css
+   ═══════════════════════════════════════════════════════════ */
+
+/* Syntax highlighting for code blocks (Catppuccin Mocha).
+   @import must stay at the very top of the file. */
+@import 'syntax.css';
+
+
+/* ───────────────────────────────────────────────────────────
+   1. Mauve accent
+   risotto maps its semantic colours to base16 slots. We're
+   re-pointing the accent ones at mauve.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+	--link:  var(--ctp-mauve);      /* links                        */
+	--hover: var(--ctp-pink);       /* links, on hover              */
+	--logo:  var(--ctp-mauve);      /* the [ title ] $ block up top  */
+
+	/* Try these instead if you fancy a change:
+	   --link: var(--ctp-lavender);  --hover: var(--ctp-mauve);
+	   --link: var(--ctp-pink);      --hover: var(--ctp-rosewater);  */
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   2. Readability
+   Catppuccin's strict base16 mapping puts very dark greys in
+   the "muted text" slots, which ends up near-invisible on a
+   dark background. These bump them to Catppuccin's actual
+   text colours so everything stays legible.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+	--muted:  var(--ctp-subtext0);  /* dates, captions, quotes */
+	--off-fg: var(--ctp-subtext1);  /* sidebar, footer, code   */
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   3. Code blocks
+   Sunk a little darker than the page so the syntax colours pop.
+   The !important is needed because the theme uses it too.
+   ─────────────────────────────────────────────────────────── */
+
+pre,
+code,
+kbd,
+samp {
+	background: var(--ctp-crust) !important;
+}
+
+pre {
+	border-radius: 4px;
+}
+
+/* Tells the browser to draw scrollbars, text selection and form
+   controls in dark mode — without this you get a bright white
+   scrollbar under any code block that's too wide to fit. */
+:root {
+	color-scheme: dark;
+}
+
+pre {
+	scrollbar-width: thin;
+	scrollbar-color: var(--ctp-surface2) var(--ctp-crust);
+}
+
+pre::-webkit-scrollbar {
+	height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+	background: var(--ctp-crust);
+}
+
+pre::-webkit-scrollbar-thumb {
+	background: var(--ctp-surface2);
+	border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+	background: var(--ctp-mauve);
+}
+
+/* Inline `code` — a touch of colour so it stands out in prose */
+:not(pre) > code {
+	color: var(--ctp-peach);
+	padding: 0.1em 0.35em;
+	border-radius: 3px;
+}
+
+/* Comments, nudged brighter than Catppuccin's default */
+.chroma .c,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs {
+	color: var(--ctp-overlay2);
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   4. Tag pills
+   Used by layouts/partials/tags.html
+   ─────────────────────────────────────────────────────────── */
+
+.tags {
+	list-style: none;
+	padding: 0;
+	margin: 0.5rem 0 0 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.tags li {
+	margin: 0;
+	padding: 0;
+}
+
+/* The theme puts an ∗ marker on every list item. Setting an explicit
+   `content` on ::marker beats `list-style: none`, so we blank it here. */
+.tags li::marker {
+	content: "";
+}
+
+.tags a {
+	display: inline-block;
+	padding: 0.1rem 0.55rem;
+	border-radius: 999px;
+	font-size: 0.85rem;
+	text-decoration: none;
+	color: var(--ctp-mauve);
+	background: var(--ctp-surface0);
+	border: 1px solid transparent;
+}
+
+.tags a:hover {
+	color: var(--ctp-crust);
+	background: var(--ctp-mauve);
+}
+
+/* The tag count shown on the /tags/ page */
+.tag-count {
+	color: var(--muted);
+	font-size: 0.85rem;
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   5. Post lists
+   ─────────────────────────────────────────────────────────── */
+
+.post {
+	margin-bottom: 2.5rem;
+}
+
+.post__meta {
+	color: var(--muted);
+	font-size: 0.9rem;
+	margin-bottom: 0.5rem;
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   6. Images & video
+   Keeps media inside the content column on small screens.
+   ─────────────────────────────────────────────────────────── */
+
+img,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+figure {
+	margin: 1.5rem 0;
+}
+
+figure img {
+	border-radius: 4px;
+}
+
+figure figcaption {
+	color: var(--muted);
+	font-size: 0.9rem;
+	margin-top: 0.4rem;
+	font-style: italic;
+}
+
+/* Responsive wrapper for YouTube/Vimeo embeds */
+.video-embed {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	height: 0;
+	margin: 1.5rem 0;
+}
+
+.video-embed iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	border-radius: 4px;
+}
+
+/* Wide things (tables, long code) scroll instead of breaking layout */
+.content__body table {
+	display: block;
+	overflow-x: auto;
+	max-width: 100%;
+}

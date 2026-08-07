@@ -1,0 +1,156 @@
+# ─────────────────────────────────────────────────────────────
+# Site basics
+# ─────────────────────────────────────────────────────────────
+
+# Your site's address. Must end with a trailing slash.
+# (The GitHub Actions deploy overrides this automatically, but keep it
+# correct anyway — it's used for RSS links and social preview cards.)
+baseURL = "https://blog.cmyksoda.cc/"
+
+theme = "risotto"
+title = "Blog"
+author = "jaxi"
+copyright = "© jaxi"
+locale = "en-GB"
+defaultContentLanguage = "en"
+
+enableInlineShortcodes = true
+enableRobotsTXT = true
+enableGitInfo = false
+
+# Keep tag/section names exactly as you typed them, rather than
+# Hugo Title-Casing them (so "how-to" stays "how-to", not "How-To").
+capitalizeListTitles = false
+
+# How many posts per page on list pages
+[pagination]
+  pagerSize = 10
+
+# ─────────────────────────────────────────────────────────────
+# Theme parameters (risotto)
+# ─────────────────────────────────────────────────────────────
+
+[params]
+  # Set to true to ask search engines NOT to index the site
+  noindex = false
+
+[params.theme]
+  # Your custom palette lives in static/css/palettes/catppuccin-mocha.css
+  palette = "catppuccin-mocha"
+
+# The "about" box in the sidebar
+[params.about]
+  title = "Blog"
+  description = "Writing about things I like."
+  # A unicode character or emoji used as the logo:
+  logo = "🍄"
+  # ...or use an image instead (comment out `logo` above if you use this):
+  # logo_image = "images/logo.png"
+
+# Sidebar social icons.
+# Icons come from FontAwesome 6 (https://fontawesome.com/icons)
+# and Academicons (https://jpswalsh.github.io/academicons).
+# Delete any you don't want, copy the block to add more.
+[[params.socialLinks]]
+  icon = "fa-brands fa-github"
+  title = "GitHub"
+  url = "https://github.com/cmyksoda"
+
+[[params.socialLinks]]
+  icon = "fa-solid fa-envelope"
+  title = "Email"
+  url = "mailto:spyc23@gmail.com"
+
+[[params.socialLinks]]
+  icon = "fa-solid fa-rss"
+  title = "RSS feed"
+  url = "/index.xml"
+
+# ─────────────────────────────────────────────────────────────
+# Navigation menu (the links along the top)
+# `weight` controls the order — lower numbers come first.
+# ─────────────────────────────────────────────────────────────
+
+[[menu.main]]
+  identifier = "posts"
+  name = "Posts"
+  url = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "about"
+  name = "About"
+  url = "/about/"
+  weight = 30
+
+# ─────────────────────────────────────────────────────────────
+# Taxonomies — these are the ways posts get grouped.
+# Left side = singular (used in front matter), right = plural (the URL).
+# ─────────────────────────────────────────────────────────────
+
+[taxonomies]
+  tag = "tags"
+
+# ─────────────────────────────────────────────────────────────
+# Markdown rendering
+# ─────────────────────────────────────────────────────────────
+
+[markup]
+
+  [markup.goldmark.renderer]
+    # Allows raw HTML inside your markdown files (needed for <video>, etc.)
+    unsafe = true
+
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+  [markup.highlight]
+    # Code block syntax highlighting.
+    # noClasses=false makes it use CSS classes so it follows your palette.
+    noClasses = false
+    lineNos = false
+    tabWidth = 4
+
+# ─────────────────────────────────────────────────────────────
+# Image processing defaults (used by the `img` shortcode)
+# ─────────────────────────────────────────────────────────────
+
+[imaging]
+  resampleFilter = "Lanczos"
+
+  [imaging.jpeg]
+    quality = 82
+
+  [imaging.webp]
+    quality = 82
+
+# ─────────────────────────────────────────────────────────────
+# Privacy — makes embedded YouTube/Vimeo less tracker-y
+# ─────────────────────────────────────────────────────────────
+
+[privacy]
+  [privacy.youtube]
+    disabled = false
+    privacyEnhanced = true
+
+  [privacy.vimeo]
+    disabled = false
+    simple = true
+
+# ─────────────────────────────────────────────────────────────
+# Output formats — this is what generates your RSS feed
+# ─────────────────────────────────────────────────────────────
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML"]
+  term = ["HTML", "RSS"]

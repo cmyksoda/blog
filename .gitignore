@@ -1,0 +1,15 @@
+# Hugo build output — regenerated every build, never commit it
+/public/
+/resources/_gen/
+/.hugo_build.lock
+
+# Hugo's cache
+/.cache/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

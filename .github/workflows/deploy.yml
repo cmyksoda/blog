@@ -1,0 +1,79 @@
+# Builds the site and publishes it to GitHub Pages on every push to main.
+#
+# One-time setup on GitHub:
+#   Repo → Settings → Pages → "Build and deployment" → Source: GitHub Actions
+# That's it. After that, every `git push` deploys.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you trigger a rebuild by hand from the Actions tab
+  workflow_dispatch:
+
+# Permissions the deploy needs
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push twice quickly, let the first deploy finish rather than
+# cancelling it half-way.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Keep this matching the Hugo you use locally (`hugo version`).
+      HUGO_VERSION: 0.164.0
+    steps:
+      - name: Install Hugo
+        run: |
+          wget -O "${{ runner.temp }}/hugo.deb" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          # Needed so Hugo can read git dates if you ever turn on enableGitInfo
+          fetch-depth: 0
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build the site
+        env:
+          HUGO_ENVIRONMENT: production
+        # baseURL comes from GitHub, so it's automatically correct whether
+        # you're on a github.io address or your own custom domain.
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
