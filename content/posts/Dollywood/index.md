@@ -1,7 +1,7 @@
 +++
 title = "Dollywood Park Review"
 date = "2026-08-06"
-description = "A review of my spring trip to Dollywood"
+description = "a review of my spring trip to dollywood"
 tags = ["amusement-parks", "reviews", "coasters"]
 toc = false
 +++
