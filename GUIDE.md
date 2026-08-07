@@ -380,6 +380,7 @@ modified copy of the theme's — compare it against the new version.
 | Site suddenly unstyled right after a settings change | mixed content — the page loads over `https://` but links `http://` assets, so the browser blocks the CSS. Re-run the deploy |
 | Image not showing | filename typo, or wrong folder — case matters! |
 | Tag page 404s | tag spelled differently in another post |
+| A section heading is lowercase (`posts` not `Posts`) | that section has no `_index.md`, so Hugo used the folder name. Add `content/<section>/_index.md` with a `title` |
 | Changes not appearing | hard-refresh (`Ctrl+Shift+R`) |
 | Deploy failed | Actions tab → click the red X → read the log |
 
