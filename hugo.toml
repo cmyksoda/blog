@@ -34,6 +34,12 @@ capitalizeListTitles = false
   # Set to true to ask search engines NOT to index the site
   noindex = false
 
+  # Your X/Twitter handle WITHOUT the @. Older X card documentation
+  # lists twitter:site as required for large-image cards, so it's worth
+  # setting. Left blank on purpose — fill in your real handle, since
+  # this publicly attributes your posts to that account.
+  twitterHandle = "cmyksoda"
+
   # Fallback social preview image, used for pages that have no image of
   # their own (the homepage, /about/, tag pages). Posts with pictures in
   # their folder use their own first image instead.

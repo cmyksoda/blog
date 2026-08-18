@@ -141,6 +141,10 @@
     removes a variable when a preview misbehaves.
 */}}
 <meta name="twitter:card" content="{{ if $ogW }}summary_large_image{{ else }}summary{{ end }}">
+{{- with site.Params.twitterHandle }}
+<meta name="twitter:site" content="@{{ . }}">
+<meta name="twitter:creator" content="@{{ . }}">
+{{- end }}
 <meta name="twitter:title" content="{{ with .Title }}{{ . }}{{ else }}{{ site.Title }}{{ end }}">
 <meta name="twitter:description" content="{{ $desc | plainify }}">
 {{- with $ogImage }}
