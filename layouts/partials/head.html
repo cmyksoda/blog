@@ -135,5 +135,14 @@
 {{- end }}
 {{- end }}
 
-{{/* A big image warrants the wide card; otherwise the small one. */}}
+{{/*
+    X/Twitter will fall back to the og: tags above, but some scrapers
+    only look at twitter:*, so we spell them out too. Costs nothing and
+    removes a variable when a preview misbehaves.
+*/}}
 <meta name="twitter:card" content="{{ if $ogW }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ with .Title }}{{ . }}{{ else }}{{ site.Title }}{{ end }}">
+<meta name="twitter:description" content="{{ $desc | plainify }}">
+{{- with $ogImage }}
+<meta name="twitter:image" content="{{ . }}">
+{{- end }}
