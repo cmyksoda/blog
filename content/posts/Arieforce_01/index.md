@@ -13,7 +13,7 @@ Never in my life have I ever seen a coaster look as out of place as ArieForce On
 
 ![A view of ArieForce One's lift hill, with the photo station in the foreground](lift.webp)
 
-Every part of this funny little park will remain with me in my memories for the rest of time. The arcade, the go-karts, the Time Tunnel, the rare Paratrooper that got moved during the time I visited. All of this silly place was special to me, and always will be. I'm clearly not alone when I say this, but I ***hope*** so badly that ArieForce One gets relocated. <3
+Every part of this funny little park will remain with me in my memories for the rest of time. The arcade, the go-karts, the Time Tunnel, the rare Paratrooper flat ride that got moved during the time I visited. All of this silly place was special to me, and always will be. I'm clearly not alone when I say this, but I ***hope so badly*** that ArieForce One gets relocated. <3
 
 ![A view of ArieForce One's outerbanked turn, with the station and signage visible](turn.webp)
 
