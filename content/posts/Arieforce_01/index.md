@@ -5,6 +5,7 @@ description = "reminiscing on one of the most unique coasters ever built"
 tags = ["amusement-parks", "coasters"]
 toc = false
 images = ["lift.webp"]
+imageAnchor = "top"
 +++
 I'm a bit late to writing this one, but I'm here nevertheless. The last night that I got to ride ArieForce One was on July 31, 2026, and what a night it was. Over the past three years I have *never* seen Fun Spot Atlanta as packed as it was that night. Luckily, I had got up there earlier in the week to get some laps in, because on this evening, I was only able to ride once. Even though I only got one ride, it was one of the most worthwhile trips to a park I've ever had.
 

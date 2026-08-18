@@ -71,6 +71,25 @@
 {{- $ogW := 0 -}}
 {{- $ogH := 0 -}}
 
+{{/*
+    How to crop the card down to 1200x630. Defaults to `smart`, which
+    detects the busiest part of the photo. Override on any single post:
+
+        imageAnchor = "top"
+
+    An unrecognised value warns and falls back to smart rather than
+    breaking the build.
+*/}}
+{{- $anchor := lower (.Params.imageAnchor | default "smart") -}}
+{{- $anchors := slice "smart" "center" "top" "bottom" "left" "right"
+                      "topleft" "topright" "bottomleft" "bottomright" -}}
+{{- $where := "" -}}
+{{- with .File }}{{ $where = printf " in %s" .Path }}{{ end -}}
+{{- if not (in $anchors $anchor) -}}
+    {{- warnf "imageAnchor %q%s is not a valid crop anchor — using \"smart\". Valid values: %s" $anchor $where (delimit $anchors ", ") -}}
+    {{- $anchor = "smart" -}}
+{{- end -}}
+
 {{/* Work out which image to use, as a page resource where possible. */}}
 {{- $ogRes := false -}}
 
@@ -92,9 +111,7 @@
 
 {{- with $ogRes -}}
     {{- if in (slice "png" "jpeg" "webp" "tiff" "bmp") .MediaType.SubType -}}
-        {{/* `smart` lets Hugo pick the most visually interesting region.
-             Swap for `center` / `top` if a photo crops badly. */}}
-        {{- $card := .Fill "1200x630 smart jpg q85" -}}
+        {{- $card := .Fill (printf "1200x630 %s jpg q85" $anchor) -}}
         {{- $ogImage = $card.Permalink -}}
         {{- $ogW = $card.Width -}}
         {{- $ogH = $card.Height -}}

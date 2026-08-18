@@ -258,12 +258,35 @@ untouched; this is a separate copy just for the card.
 Setting `images` only affects the share card. It doesn't put the picture
 anywhere on the page, in the posts list, or in the RSS feed.
 
-Since 1200×630 is wider than most photos, something gets cropped away.
-The crop uses Hugo's **smart** anchor, which detects the most visually
-interesting region rather than blindly taking the middle — on a coaster
-photo it tends to find the ride structure. If a particular picture crops
-badly, change `smart` to `center` or `top` in the `.Fill` line of
-`layouts/partials/head.html`, or pick a different photo with `images`.
+### Choosing how it crops
+
+Since 1200×630 is much wider than most photos, something always gets
+cropped away. By default the crop uses Hugo's **smart** anchor, which
+tries to find the most visually interesting region.
+
+Smart is a guess, and it's often wrong in a specific way: it favours
+small bright things (screens, signs) over large structures, so on a tall
+subject it tends to sit too low. Override it per post:
+
+```toml
+images = ["lift.webp"]
+imageAnchor = "top"
+```
+
+Valid values: `smart`, `center`, `top`, `bottom`, `left`, `right`,
+`topleft`, `topright`, `bottomleft`, `bottomright`. A typo warns during
+the build and falls back to `smart` rather than breaking the site.
+
+Rules of thumb:
+
+- **`top`** for anything tall — lift hills, towers, drop rides
+- **`center`** for a subject in the middle of the frame
+- **`bottom`** for reflections, foregrounds, crowds
+- **`smart`** when you're not sure; check the result and override if odd
+
+To see what a crop actually looks like without posting anywhere, build
+the site and open the generated file in `public/posts/<post>/` — it's
+the one with `_hu_` in its name and a `.jpg` extension.
 
 ### If the preview doesn't update
 
