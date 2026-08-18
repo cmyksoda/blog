@@ -232,6 +232,63 @@ from the `[taxonomies]` block in `hugo.toml` and just use tags.
 
 ---
 
+## Social previews (the card you see when you share a link)
+
+This works automatically now. When you share a post, the preview picks
+an image in this order:
+
+1. **`images` in the post's front matter**, if you want to choose:
+   ```toml
+   images = ["turn.webp"]
+   ```
+2. **The first image in the post's folder**, alphabetically. For the
+   ArieForce post that's `crowd.webp`.
+3. **The site-wide fallback** — your CMYK logo. Set by `ogImage` under
+   `[params]` in `hugo.toml`, and used for pages with no pictures of
+   their own, like the homepage and `/about/`.
+
+The filename in `images` is looked up in the post's own folder first,
+then treated as a `static/` path or full URL if it isn't found there.
+
+Whichever it picks gets resized to **1200×630** — the ratio every social
+site expects — and converted to **JPEG**, because some platforms (X
+especially) won't render WebP in a preview card. Your original stays
+untouched; this is a separate copy just for the card.
+
+Setting `images` only affects the share card. It doesn't put the picture
+anywhere on the page, in the posts list, or in the RSS feed.
+
+Since 1200×630 is wider than most photos, something gets cropped away.
+The crop uses Hugo's **smart** anchor, which detects the most visually
+interesting region rather than blindly taking the middle — on a coaster
+photo it tends to find the ride structure. If a particular picture crops
+badly, change `smart` to `center` or `top` in the `.Fill` line of
+`layouts/partials/head.html`, or pick a different photo with `images`.
+
+### If the preview doesn't update
+
+Social sites cache previews hard, and they cache them *per URL*. Once
+Mastodon or X has fetched a link, it'll keep showing the old card even
+after you fix the page. This is the most common source of "I fixed it
+but it still looks wrong."
+
+Ways round it:
+
+- **Mastodon**: there's no user-facing purge. Sharing the link with a
+  harmless `?v=2` on the end makes it a "new" URL and forces a re-fetch.
+- **X**: same trick works.
+- **Check what's actually being sent** without posting anywhere:
+  ```bash
+  curl -s https://blog.cmyksoda.cc/posts/arieforce_01/ | grep 'og:image'
+  ```
+  If that shows a full `https://...` URL, your side is correct and it's
+  just their cache.
+
+One rule worth knowing: these URLs **must be absolute**. Social sites
+fetch your page from their own servers, so a relative path like
+`/images/x.jpg` resolves against *their* domain and silently shows
+nothing. Yours are absolute, generated from `baseURL`.
+
 ## Making it look how you want
 
 ### Your colours

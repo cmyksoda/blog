@@ -52,5 +52,71 @@
 <meta property="og:description" content="{{ $desc | plainify }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 {{ with site.Language.Locale }}<meta property="og:locale" content="{{ . }}">{{ end }}
-{{ with site.Params.about.logo_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
-<meta name="twitter:card" content="summary">
+
+{{/*
+    Social preview image, in order of preference:
+      1. `images = ["turn.webp"]` in the post's front matter
+      2. the first image sitting in the post's folder
+      3. site-wide fallback: params.ogImage in hugo.toml
+
+    Images found in the post get resized to 1200x630 (the ratio every
+    social site expects) and converted to JPEG, because some platforms
+    — X in particular — won't render WebP in a preview card.
+
+    These URLs MUST be absolute. Social sites fetch your page from
+    their own servers, so a relative path resolves against *their*
+    domain and silently shows nothing.
+*/}}
+{{- $ogImage := "" -}}
+{{- $ogW := 0 -}}
+{{- $ogH := 0 -}}
+
+{{/* Work out which image to use, as a page resource where possible. */}}
+{{- $ogRes := false -}}
+
+{{- with .Params.images -}}
+    {{- $name := index . 0 -}}
+    {{/* A filename from the post's own folder, e.g. images = ["lift.webp"] */}}
+    {{- with $.Resources.GetMatch $name -}}
+        {{- $ogRes = . -}}
+    {{- else -}}
+        {{/* Otherwise a path under static/ or a full URL */}}
+        {{- $ogImage = $name | absURL -}}
+    {{- end -}}
+{{- else -}}
+    {{/* Nothing specified — use the first image in the post's folder */}}
+    {{- with .Resources.ByType "image" -}}
+        {{- $ogRes = index . 0 -}}
+    {{- end -}}
+{{- end -}}
+
+{{- with $ogRes -}}
+    {{- if in (slice "png" "jpeg" "webp" "tiff" "bmp") .MediaType.SubType -}}
+        {{/* `smart` lets Hugo pick the most visually interesting region.
+             Swap for `center` / `top` if a photo crops badly. */}}
+        {{- $card := .Fill "1200x630 smart jpg q85" -}}
+        {{- $ogImage = $card.Permalink -}}
+        {{- $ogW = $card.Width -}}
+        {{- $ogH = $card.Height -}}
+    {{- else -}}
+        {{/* SVG/GIF can't be resized, so link them as-is */}}
+        {{- $ogImage = .Permalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if not $ogImage -}}
+    {{- with site.Params.ogImage }}{{ $ogImage = . | absURL }}{{ end -}}
+{{- end -}}
+
+{{- with $ogImage }}
+<meta property="og:image" content="{{ . }}">
+{{- with $ogW }}
+<meta property="og:image:width" content="{{ . }}">
+{{- end }}
+{{- with $ogH }}
+<meta property="og:image:height" content="{{ . }}">
+{{- end }}
+{{- end }}
+
+{{/* A big image warrants the wide card; otherwise the small one. */}}
+<meta name="twitter:card" content="{{ if $ogW }}summary_large_image{{ else }}summary{{ end }}">

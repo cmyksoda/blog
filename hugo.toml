@@ -34,6 +34,11 @@ capitalizeListTitles = false
   # Set to true to ask search engines NOT to index the site
   noindex = false
 
+  # Fallback social preview image, used for pages that have no image of
+  # their own (the homepage, /about/, tag pages). Posts with pictures in
+  # their folder use their own first image instead.
+  ogImage = "/android-chrome-512x512.png"
+
 [params.theme]
   # Your custom palette lives in static/css/palettes/catppuccin-mocha.css
   palette = "catppuccin-mocha"
