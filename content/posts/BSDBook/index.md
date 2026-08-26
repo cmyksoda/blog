@@ -5,7 +5,7 @@ description = "an overview of my conversion of my macbook into an openbsd machin
 tags = ["technology", "openbsd"]
 toc = false
 images = ["irl.webp"]
-imageAnchor = "center"
+imageAnchor = "top"
 +++
 I've never been a big macOS girl. I've always loved Linux and the older versions of Windows will always be special to me, but I wanted to try out the Mac ecosystem sometime around 2017. I had an iPhone, and I had started taking classes at tech school, so it felt like a good investment at the time.
 
