@@ -15,6 +15,8 @@ A few years later, I get an idea. "This thing doesn't have to be a Mac..." An $8
 
 ## Introduction to this machine, and to OpenBSD
 
+---
+
 The BSDBook is, and will always be, a fun side project to tinker with. I'm a disabled girl who rarely leaves the house, so I have little *practical* use for a laptop, but I think that's what makes this project special to me. It's a deliberately non-serious, experimental object that I have been having a lot of fun with.
 
 OpenBSD has a bit of a learning curve, but I gotta say, it kinda seems like the BSDs have their shit together a little more than Linux does. I recommend checking out [this blog post](https://www.over-yonder.net/~fullermd/rants/bsd4linux/01) if you're interested in the differences between the two ecosystems; it helped me understand a lot of the core design decisions that make the BSDs so different from a Linux system. A key concept, and one that you'll notice in daily use, is that the BSDs (OpenBSD especially, more on that later) draw a very clean line between the *core system* and the *additional packages*. This doesn't really happen in Linux, unless you consider the modern advent of the Atomic Desktop, and it makes the BSD experience feel simultaneously more robust and **fucking annoying to use.**
@@ -29,11 +31,15 @@ On OpenBSD, I *interact* with the core system. I edit the Wi-Fi configuration an
 
 ## Hardware compatibility
 
+---
+
 Actually quite good, with one big asterisk. The trackpad works great: two-finger scroll works, the scroll direction is configurable, and clicking in the bottom right registers as a right-click too. Fn+function keys work perfectly for brightness and volume. The audio works fine, both through speakers and headphones.
 
 Now the asterisk: the internal Wi-Fi card just isn't supported. During setup, I used my Android phone with USB tethering for internet. I now use a cheap USB Wi-Fi adapter. It works fine, but there's no 5 GHz band support. Also, worth mentioning, adjusting the keyboard backlight seems completely broken as of OpenBSD 7.9. I haven't submitted a bug report yet, but I intend to.
 
 ## The security mindset, and how software works on OpenBSD
+
+---
 
 I've picked up on a vibe amongst developers that the OpenBSD team is a bit hostile, or nitpicky. Especially from devs who might not be familiar with the OpenBSD port process, or treat compatibility with BSD systems as an afterthought. I don't think this criticism is entirely fair, but at the same time, I understand where the critics are coming from. OpenBSD is a server operating system that happens to also function as a desktop. We've been here before, plenty of us daily drive Debian, but this is a bit different.
 
@@ -42,6 +48,8 @@ It can, at times, feel like the OS is actively trying to stop you from having a 
 Ports are the applications not included in the base system. Community-maintained, obsessively catalogued, and inconsistently robust, ports *make* OpenBSD. This is where the software stack I use comes from. The ports tree carries the security-focused mindset and will never accept Electron apps or the like.
 
 ## My personal software stack
+
+---
 
 - **QOwnNotes:** A drop-in replacement for Obsidian (for my relatively minimal use case). Handles folder view, editing, viewing, live preview. It's awesome. Check out my [shell scripts](https://github.com/cmyksoda/Shell-Scripts) for a cute solution for syncing the two apps across devices.
 {{< img src="qownnotes.webp" alt="A screenshot showing an open QOwnNotes window with a BSDBook document open, and a small terminal emulator window open running a vault sync command" caption="QOwnNotes, with a terminal showing my syncing process." >}}
@@ -54,6 +62,8 @@ Ports are the applications not included in the base system. Community-maintained
 
 ## DE and theming
 
+---
+
 **Xfce** and **Chicago95**. That's mostly it. I use the stock apps because I am of the opinion that if I'm using a Desktop Environment over a Window Manager, I want to see what the devs have been working on, to get the full experience.
 
 I haven't used Xfce since I was in middle school, and it's largely the same, which isn't a bad thing. It's fast, themeable, and nice to use on a laptop. In addition to base Chicago95, I forked, then submitted a PR, then got the changes merged to get Puffy (the sassy pufferfish mascot of OpenBSD) in the start menu. I use it, you can use it too.
@@ -65,6 +75,8 @@ mogrify -size 1440x900 -fill '#HEXCODE' -opaque black tile:*.png
 {{< img src="start_wallpapers.webp" alt="A screenshot showing my start menu, and the system settings dialog showing all of the tiled wallpapers." caption="Start menu and wallpapers." >}}
 
 ## Closing thoughts
+
+---
 
 This has been a really fun project, and I'm not quite done with it. I've been procrastinating on getting Pure Data set up for music production; it suits the tinker-y, messy flow that this machine has. As for the Wi-Fi card, I've heard tales of others [swapping the included Wi-Fi card for a supported model](https://openbsdonapple.wiki/doku.php?id=intel%3Ahacks%3Awifi_swap). Highly interested in that.
 
