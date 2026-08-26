@@ -1,0 +1,56 @@
+{{/*
+    The full-screen viewers for a post's images ("lightboxes").
+
+    Call it with the already-rendered content:
+
+        {{ $content := .Content }}
+        ...
+        {{ partial "lightbox.html" (dict "page" . "content" $content) }}
+
+    Why it lives here rather than next to each image: the img shortcode and
+    the image render hook each stash their picture's details as they go, but
+    neither can know what comes before or after it. Waiting until the whole
+    post is rendered means the running order is known — which is what makes
+    the ‹ › arrows, and the "3 / 12" counter, possible at all.
+
+    There's no JavaScript involved. Clicking a picture jumps to #its-id and
+    the viewer appears because CSS's :target matches it; the arrows jump to
+    the neighbouring id; ✕ and the backdrop jump back to the picture in the
+    article, which both closes the viewer and puts you back where you were.
+*/}}
+{{- $page := .page -}}
+{{- $content := .content -}}
+
+{{/* Every trigger link, in the order they appear in the finished post */}}
+{{- $ids := slice -}}
+{{- range findRE `href="#lb-[a-f0-9]+-[si][0-9]+"` $content -}}
+    {{- $ids = $ids | append (strings.TrimSuffix `"` (strings.TrimPrefix `href="#` .)) -}}
+{{- end -}}
+
+{{- $total := len $ids -}}
+{{- if $total }}
+<div class="lightbox-set">
+    {{- range $i, $id := $ids }}
+    {{- with $page.Store.Get (printf "lightbox:%s" $id) }}
+    {{- $back := printf "#img-%s" (strings.TrimPrefix "lb-" $id) }}
+    <figure class="lightbox" id="{{ $id }}">
+        <a class="lightbox__dismiss" href="{{ $back }}" tabindex="-1" aria-hidden="true"></a>
+        <a class="lightbox__close" href="{{ $back }}" aria-label="Close">&times;</a>
+        {{- if gt $i 0 }}
+        <a class="lightbox__nav lightbox__nav--prev" href="#{{ index $ids (sub $i 1) }}" aria-label="Previous image">&lsaquo;</a>
+        {{- end }}
+        {{- if lt $i (sub $total 1) }}
+        <a class="lightbox__nav lightbox__nav--next" href="#{{ index $ids (add $i 1) }}" aria-label="Next image">&rsaquo;</a>
+        {{- end }}
+        <img class="lightbox__img" src="{{ .url }}" alt="{{ .alt }}" loading="lazy" decoding="async">
+        {{- if or .caption (gt $total 1) }}
+        <figcaption class="lightbox__caption">
+            {{- with .caption }}{{ . | markdownify }}{{ end }}
+            {{- if gt $total 1 }}<span class="lightbox__count">{{ add $i 1 }} / {{ $total }}</span>{{ end }}
+        </figcaption>
+        {{- end }}
+    </figure>
+    {{- end }}
+    {{- end }}
+</div>
+{{- end }}

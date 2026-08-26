@@ -12,6 +12,7 @@
     caption — optional text underneath
     width   — "50%", "300px", or just "300" (treated as pixels)
     align   — "center", "left" or "right" (default: left)
+    zoom    — "false" to stop the image opening full-screen when clicked
 
     Big images are resized down to 1400px automatically, so you can drop
     a full-size phone photo straight in.
@@ -21,6 +22,7 @@
 {{- $caption := .Get "caption" -}}
 {{- $width   := .Get "width" -}}
 {{- $align   := .Get "align" -}}
+{{- $zoom    := ne (.Get "zoom" | default "true") "false" -}}
 {{- $maxWidth := 1400 -}}
 
 {{- $url := $src -}}
@@ -61,13 +63,23 @@
 {{- with $align }}{{ $class = $class | append (printf "img-%s" .) }}{{ end -}}
 {{- if $width }}{{ $class = $class | append "img-sized" }}{{ end -}}
 
+{{/* Ids for the click-to-enlarge view. The page hash keeps them unique when
+     summaries from several posts share one list page; partials/lightbox.html
+     builds the view itself, from what we hand it here. */}}
+{{- $id := printf "lb-%s-s%d" (substr (sha256 .Page.RelPermalink) 0 8) .Ordinal -}}
+{{- if $zoom -}}
+    {{- .Page.Store.Set (printf "lightbox:%s" $id) (dict "url" $url "alt" $alt "caption" $caption) -}}
+{{- end -}}
+
 <figure class="{{ delimit $class " " }}"{{ with $width }} style="{{ printf "width:%s" . | safeCSS }}"{{ end }}>
+    {{- if $zoom }}<a class="lightbox-trigger" href="#{{ $id }}" id="img-{{ strings.TrimPrefix "lb-" $id }}" aria-label="Enlarge image{{ with $alt }}: {{ . }}{{ end }}">{{ end -}}
     <img src="{{ $url }}" alt="{{ $alt }}"
          {{- if not $width }}
          {{- with $natW }} width="{{ . }}"{{ end }}
          {{- with $natH }} height="{{ . }}"{{ end }}
          {{- end }}
          loading="lazy" decoding="async">
+    {{- if $zoom }}</a>{{ end }}
     {{- with $caption }}
     <figcaption>{{ . | markdownify }}</figcaption>
     {{- end }}

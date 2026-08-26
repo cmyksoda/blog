@@ -144,6 +144,39 @@ understands `![alt](src)`. That's a limitation of markdown itself, not
 of Hugo. So whenever you want to size or position an image, use the
 `img` shortcode above.
 
+### Click to enlarge
+
+Every image in a post can be clicked to fill the screen, with its caption
+underneath and a `3 / 12` counter. Use the **‹ ›** arrows to move between
+all the pictures in that post without closing anything. To come back out,
+click the **✕**, click anywhere around the photo, or press the browser's
+**Back** button.
+
+This happens automatically — you don't have to do anything, and it works
+for both the shortcode and plain markdown images. If you'd rather one
+particular image *didn't* do it (a small logo, say):
+
+```markdown
+{{< img src="logo.png" alt="A logo" zoom="false" >}}
+```
+
+Three things worth knowing:
+
+- There's **no JavaScript** anywhere on the site. Clicking a photo jumps
+  to `#its-id` and CSS's `:target` makes the viewer appear; the arrows
+  are simply links to the next photo's id.
+- The trade-off of doing it that way: **<kbd>Esc</kbd> doesn't close it**,
+  because CSS can't listen for a keypress. Back does, though — and each
+  photo you look at is one Back press, so browsing ten photos means ten
+  Backs to leave the page.
+- The enlarged version is the same file the page already loaded — the one
+  resized to 1400px — so it opens instantly with nothing extra to
+  download.
+
+The viewers themselves are built by `layouts/partials/lightbox.html`,
+*after* the post is rendered. That's the only way it can know which photo
+comes next, which is what makes the arrows possible.
+
 ### If an image doesn't show up
 
 The build now warns you by name:

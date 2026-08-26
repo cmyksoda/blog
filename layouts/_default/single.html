@@ -18,9 +18,15 @@
         {{- end }}
     </header>
 
+    {{/* Rendered first so the lightbox partial below knows which images the
+         post ended up containing, and in what order. */}}
+    {{- $content := .Content }}
+
     <div class="content__body">
-        {{ .Content }}
+        {{ $content }}
     </div>
+
+    {{ partial "lightbox.html" (dict "page" . "content" $content) }}
 
     <footer class="content__footer">
         {{- partial "tags.html" . }}

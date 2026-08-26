@@ -4,11 +4,12 @@
     Gives them the same treatment as the img shortcode — big files get
     resized down, and they load lazily — without you doing anything.
 
-    This deliberately outputs a bare <img> rather than a <figure>,
-    because markdown puts images inside a paragraph and a <figure>
-    isn't allowed in there.
+    The output is deliberately just a link around an <img>, never a
+    <figure>, because markdown puts images inside a paragraph and a
+    <figure> isn't allowed in there.
 
-    Markdown has no syntax for width or alignment, so for those use:
+    Markdown has no syntax for width, alignment or turning the click-to-
+    enlarge off, so for those use:
         {{< img src="photo.jpg" alt="..." width="50%" align="center" >}}
 */}}
 {{- $src := .Destination -}}
@@ -41,8 +42,14 @@
     {{- warnf "markdown image: couldn't find %q next to %s — is the file in that folder, and spelled exactly right (capitals matter)?" $src .Page.File.Path -}}
 {{- end -}}
 
-<img src="{{ $url }}" alt="{{ $alt }}"
+{{/* Ids for the click-to-enlarge view. The page hash keeps them unique when
+     summaries from several posts share one list page; partials/lightbox.html
+     builds the view itself, from what we hand it here. */}}
+{{- $id := printf "lb-%s-i%d" (substr (sha256 .Page.RelPermalink) 0 8) .Ordinal -}}
+{{- .Page.Store.Set (printf "lightbox:%s" $id) (dict "url" $url "alt" $alt "caption" $title) -}}
+
+<a class="lightbox-trigger" href="#{{ $id }}" id="img-{{ strings.TrimPrefix "lb-" $id }}" aria-label="Enlarge image{{ with $alt }}: {{ . }}{{ end }}"><img src="{{ $url }}" alt="{{ $alt }}"
      {{- with $title }} title="{{ . }}"{{ end }}
      {{- with $w }} width="{{ . }}"{{ end }}
      {{- with $h }} height="{{ . }}"{{ end }}
-     loading="lazy" decoding="async">
+     loading="lazy" decoding="async"></a>

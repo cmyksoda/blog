@@ -233,6 +233,179 @@ figure figcaption {
 	}
 }
 
+/* ═══════════════════════════════════════════════════════════
+   Click an image to see it full-screen (a "lightbox")
+
+   There's no JavaScript here. Clicking a picture jumps to #its-id,
+   and :target below is what makes the viewer appear. The arrows are
+   just links to the neighbouring picture's id.
+
+   Markup: layouts/partials/lightbox.html, plus the trigger links in
+   layouts/shortcodes/img.html and _default/_markup/render-image.html
+   ═══════════════════════════════════════════════════════════ */
+
+/* The clickable picture in the article. Inline-block so it takes up
+   exactly as much room as the bare image used to. */
+.lightbox-trigger {
+	display: inline-block;
+	max-width: 100%;
+	line-height: 0;
+	text-decoration: none;
+	cursor: zoom-in;
+	/* breathing room when closing the viewer scrolls us back here */
+	scroll-margin: 2rem;
+}
+
+.lightbox-trigger:focus-visible {
+	outline: 2px solid var(--link);
+	outline-offset: 3px;
+}
+
+/* When the shortcode was given a width, the figure is the thing that's
+   sized, so the link has to fill it for the image to follow. */
+.img-sized .lightbox-trigger {
+	display: block;
+	width: 100%;
+}
+
+/* The viewers all sit together at the end of the article, hidden, until
+   one of them is the thing the URL points at. */
+.lightbox {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 900;
+	margin: 0;
+	padding: 0;
+	background: rgba(17, 17, 27, 0.94); /* --ctp-crust, dimmed */
+}
+
+.lightbox:target {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.7rem;
+}
+
+.lightbox__img {
+	position: relative;
+	max-width: 94vw;
+	max-height: 82vh;
+	width: auto;
+	height: auto;
+}
+
+.lightbox__caption {
+	position: relative;
+	max-width: 60ch;
+	padding: 0 3.5rem;
+	text-align: center;
+}
+
+/* Its own line under the caption — long captions read badly with a
+   counter tacked onto the end of the sentence. */
+.lightbox__count {
+	display: block;
+	margin-top: 0.4rem;
+	font-style: normal;
+	opacity: 0.7;
+}
+
+/* Fills the whole viewer, underneath the picture, so that clicking
+   anywhere around the image closes it. */
+.lightbox__dismiss {
+	position: absolute;
+	inset: 0;
+	cursor: zoom-out;
+}
+
+.lightbox__close,
+.lightbox__nav {
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	text-decoration: none;
+	line-height: 1;
+	color: var(--ctp-text);
+	/* solid enough to stay legible sitting over a bright photo */
+	background: rgba(17, 17, 27, 0.75);
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover,
+.lightbox__close:focus-visible,
+.lightbox__nav:focus-visible {
+	color: var(--ctp-crust);
+	background: var(--ctp-mauve);
+}
+
+.lightbox__close {
+	top: 0.75rem;
+	right: 0.75rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 1.5rem;
+}
+
+.lightbox__nav {
+	top: 50%;
+	transform: translateY(-50%);
+	width: 3rem;
+	height: 3rem;
+	font-size: 2.4rem;
+	/* the glyph sits low in its line box; nudge it back to centre */
+	padding-bottom: 0.2em;
+}
+
+.lightbox__nav--prev {
+	left: 0.75rem;
+}
+
+.lightbox__nav--next {
+	right: 0.75rem;
+}
+
+/* Stop the page behind scrolling away underneath the image */
+html:has(.lightbox:target) {
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.lightbox:target {
+		animation: lightbox-fade-in 0.15s ease-out;
+	}
+}
+
+@keyframes lightbox-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Phones: smaller controls, and keep them clear of the picture */
+@media (max-width: 600px) {
+	.lightbox__nav {
+		width: 2.5rem;
+		height: 2.5rem;
+		font-size: 2rem;
+	}
+
+	.lightbox__img {
+		max-height: 74vh;
+	}
+
+	.lightbox__caption {
+		padding: 0 1rem;
+	}
+}
+
 /* Responsive wrapper for YouTube/Vimeo embeds */
 .video-embed {
 	position: relative;
