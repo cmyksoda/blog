@@ -290,7 +290,8 @@ figure figcaption {
 
 .lightbox__img {
 	position: relative;
-	max-width: 94vw;
+	/* leaves a gutter each side so the arrows never sit on the picture */
+	max-width: calc(100vw - 9rem);
 	max-height: 82vh;
 	width: auto;
 	height: auto;
@@ -324,6 +325,8 @@ figure figcaption {
 .lightbox__nav {
 	position: absolute;
 	z-index: 2;
+	/* so the optical nudge below can't stretch these into ellipses */
+	box-sizing: border-box;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -348,7 +351,6 @@ figure figcaption {
 	right: 0.75rem;
 	width: 2.5rem;
 	height: 2.5rem;
-	font-size: 1.5rem;
 }
 
 .lightbox__nav {
@@ -356,9 +358,12 @@ figure figcaption {
 	transform: translateY(-50%);
 	width: 3rem;
 	height: 3rem;
-	font-size: 2.4rem;
-	/* the glyph sits low in its line box; nudge it back to centre */
-	padding-bottom: 0.2em;
+}
+
+/* Drawn in layouts/partials/icon.html, not typed — see the note there. */
+.lightbox__icon {
+	width: 45%;
+	height: 45%;
 }
 
 .lightbox__nav--prev {
@@ -389,20 +394,32 @@ html:has(.lightbox:target) {
 	}
 }
 
-/* Phones: smaller controls, and keep them clear of the picture */
+/* Phones: gutters wide enough for arrows would leave the picture tiny, so
+   the arrows drop below it instead — out of the way, and easier to thumb. */
 @media (max-width: 600px) {
 	.lightbox__nav {
+		top: auto;
+		bottom: 1rem;
+		transform: none;
 		width: 2.5rem;
 		height: 2.5rem;
-		font-size: 2rem;
+	}
+
+	.lightbox__nav--prev {
+		left: 2rem;
+	}
+
+	.lightbox__nav--next {
+		right: 2rem;
 	}
 
 	.lightbox__img {
-		max-height: 74vh;
+		max-width: 94vw;
+		max-height: 64vh;
 	}
 
 	.lightbox__caption {
-		padding: 0 1rem;
+		padding: 0 4rem;
 	}
 }
 

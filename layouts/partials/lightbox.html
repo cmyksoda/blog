@@ -35,12 +35,12 @@
     {{- $back := printf "#img-%s" (strings.TrimPrefix "lb-" $id) }}
     <figure class="lightbox" id="{{ $id }}">
         <a class="lightbox__dismiss" href="{{ $back }}" tabindex="-1" aria-hidden="true"></a>
-        <a class="lightbox__close" href="{{ $back }}" aria-label="Close">&times;</a>
+        <a class="lightbox__close" href="{{ $back }}" aria-label="Close">{{ partial "icon.html" "close" }}</a>
         {{- if gt $i 0 }}
-        <a class="lightbox__nav lightbox__nav--prev" href="#{{ index $ids (sub $i 1) }}" aria-label="Previous image">&lsaquo;</a>
+        <a class="lightbox__nav lightbox__nav--prev" href="#{{ index $ids (sub $i 1) }}" aria-label="Previous image">{{ partial "icon.html" "prev" }}</a>
         {{- end }}
         {{- if lt $i (sub $total 1) }}
-        <a class="lightbox__nav lightbox__nav--next" href="#{{ index $ids (add $i 1) }}" aria-label="Next image">&rsaquo;</a>
+        <a class="lightbox__nav lightbox__nav--next" href="#{{ index $ids (add $i 1) }}" aria-label="Next image">{{ partial "icon.html" "next" }}</a>
         {{- end }}
         <img class="lightbox__img" src="{{ .url }}" alt="{{ .alt }}" loading="lazy" decoding="async">
         {{- if or .caption (gt $total 1) }}

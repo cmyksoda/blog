@@ -1,0 +1,19 @@
+{{/*
+    The lightbox's ‹ › ✕ controls, drawn rather than typed.
+
+    A text glyph sits wherever its font's metrics put it, which left all
+    three visibly off-centre in their circles — and any nudge to correct
+    that is only right for one font. These paths are symmetric about the
+    centre of the viewBox, so they centre exactly, whatever the font.
+
+    Pass "prev", "next" or "close".
+*/}}
+{{- $paths := dict
+    "prev"  "M15.5 5 L8.5 12 L15.5 19"
+    "next"  "M8.5 5 L15.5 12 L8.5 19"
+    "close" "M7 7 L17 17 M17 7 L7 17" -}}
+{{- with index $paths . -}}
+<svg class="lightbox__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="{{ . }}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{{- else -}}
+{{- errorf "icon partial: expected \"prev\", \"next\" or \"close\", got %q" . -}}
+{{- end -}}
