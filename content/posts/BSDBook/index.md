@@ -1,5 +1,5 @@
 +++
-title = "The BSDBook, My Journey with OpenBSD on My 2015 MacBook Air"
+title = "The BSDBook: My Journey with OpenBSD on My 2015 MacBook Air"
 date = "2026-08-26"
 description = "an overview of my conversion of my macbook into an openbsd machine"
 tags = ["technology", "openbsd"]
