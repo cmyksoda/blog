@@ -152,11 +152,20 @@ capitalizeListTitles = false
 [imaging]
   resampleFilter = "Lanczos"
 
+  # Quality for the resized copies Hugo generates. Hugo's own default is
+  # 75, so removing these blocks makes images WORSE, not better.
+  #
+  # These are set high on purpose. Hugo encodes with a Go library rather
+  # than libwebp/mozjpeg, and it produces visible blocky patches in large
+  # flat areas — dark UI screenshots especially — at settings that look
+  # fine on photographs. 82 was enough to visibly wreck a screenshot with
+  # a dark background. The extra file size is a fair trade.
+
   [imaging.jpeg]
-    quality = 82
+    quality = 92
 
   [imaging.webp]
-    quality = 82
+    quality = 95
 
 # ─────────────────────────────────────────────────────────────
 # Privacy — makes embedded YouTube/Vimeo less tracker-y
