@@ -1,6 +1,10 @@
 {{/*
     A single tag's page, e.g. /tags/cooking/ — all the posts
     carrying that tag. Also generated automatically by Hugo.
+
+    Lives at layouts root, not _default/: since Hugo's template
+    rewrite (0.146+), _default/taxonomy.html shadows _default/term.html
+    for term pages, so both would render the "all tags" list.
 */}}
 {{ define "main" }}
     <header class="content__header">

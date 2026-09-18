@@ -2,7 +2,7 @@
 title = "sump.stream"
 date = "2026-08-27"
 description = "sump.stream — all sump, all the time"
-tags = ["technology", "silly"]
+tags = ["technology", "silly", "self-hosting"]
 toc = false
 images = ["website.webp"]
 imageAnchor = "top"

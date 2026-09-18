@@ -3,9 +3,10 @@
     Styled by the `.tags` rules in static/css/custom.css.
     Used from single.html and post/list.html.
 */}}
+{{/* Sorted alphabetically so the display order never depends on front-matter order. */}}
 {{- with .GetTerms "tags" }}
 <ul class="tags">
-    {{- range . }}
+    {{- range sort . "LinkTitle" }}
     <li><a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a></li>
     {{- end }}
 </ul>
