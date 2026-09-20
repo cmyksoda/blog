@@ -4,6 +4,7 @@ date = "2026-09-20"
 description = "modding my favorite daily game to make it less frustrating"
 tags = ["technology", "dev", "games", "self-hosting"]
 images = ["main.webp"]
+imageAnchor = "top"
 toc = false
 +++
 Krillion has quickly become my favorite daily game, my favorite of the *dles*, if you will. Seven prompts, rarer answers score higher. But there's the clock. Ticking, ever-present, imposing. Stressful. For each prompt you are allotted 25 seconds, and personally, this makes the game a tad less fun. Don't get me wrong, I fully understand that this is part of the difficulty, and likely the appeal of this game to others, but my autism disagrees with it.
