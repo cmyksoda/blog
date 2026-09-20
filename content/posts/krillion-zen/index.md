@@ -1,6 +1,6 @@
 +++
 title = "Making Krillion Less Stressful"
-date = "2026-09-18"
+date = "2026-09-20"
 description = "modding my favorite daily game to make it less frustrating"
 tags = ["technology", "dev", "games", "self-hosting"]
 images = ["main.webp"]
