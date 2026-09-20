@@ -32,6 +32,17 @@
 
 
 /* ───────────────────────────────────────────────────────────
+   1b. Bold fix
+   Fira Mono only ships 400 and 700; the theme's 600 lands in
+   a dead zone so <strong> looks identical to normal text.
+   ─────────────────────────────────────────────────────────── */
+
+b,
+strong {
+    font-weight: 700;
+}
+
+/* ───────────────────────────────────────────────────────────
    2. Readability
    Catppuccin's strict base16 mapping puts very dark greys in
    the "muted text" slots, which ends up near-invisible on a
