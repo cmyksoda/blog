@@ -1,6 +1,6 @@
 # cmyksoda@blog
 
-[🔗Live Site](https://blog.cmyksoda.cc)
+[Live Site](https://blog.cmyksoda.cc)
 
 ## License & Credits
 
