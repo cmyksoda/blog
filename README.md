@@ -14,3 +14,6 @@ All original written content, articles, and media in this repository are license
 - **Framework:** [Hugo](https://gohugo.io) — Licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 - **Theme:** [Risotto](https://github.com) by Joe Roe — Licensed under the [MIT License](https://github.com/joeroe/risotto/blob/main/LICENSE).
 
+---
+
+*This project was made with AI assistance. For more information, see [my AI usage statement](https://github.com/cmyksoda/cmyksoda/blob/main/AI_USAGE.md).*
