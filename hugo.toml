@@ -63,7 +63,7 @@ capitalizeListTitles = false
 # and Academicons (https://jpswalsh.github.io/academicons).
 # Delete any you don't want, copy the block to add more.
 [[params.socialLinks]]
-  icon = "fa-solid fa-house"
+  icon = "fa-solid fa-circle-user"
   title = "Homepage"
   url = "https://cmyksoda.cc/"
 
